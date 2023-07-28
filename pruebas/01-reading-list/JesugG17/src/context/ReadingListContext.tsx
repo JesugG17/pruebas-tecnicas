@@ -3,7 +3,8 @@ import { Book } from "../types/libary.interface";
 
 type ReadingListContexType = {
     readingList: Book[]
-    setReadingList: React.Dispatch<React.SetStateAction<Book[]>>;
+    addBookToReadingList: (book: Book) => void;
+    removeBookToReadingList: (ISBN: string) => void;
 }
 
 export const ReadingListContext = createContext<ReadingListContexType>({} as ReadingListContexType);

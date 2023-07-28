@@ -6,10 +6,21 @@ export const ReadingListProvider: FC<Props> = ({ children }) => {
 
   const [readingList, setReadingList] = useState<Book[]>([]);
 
+  const addBookToReadingList = (book: Book) => {
+    setReadingList([book, ...readingList]);
+  }
+
+  const removeBookToReadingList = (ISBN: string) => {
+    const newReadingList = readingList.filter(book => book.ISBN !== ISBN);
+
+    setReadingList(newReadingList);
+  }
+
   return (
     <ReadingListContext.Provider value={{
       readingList,
-      setReadingList
+      addBookToReadingList,
+      removeBookToReadingList
     }}>
         { children }
     </ReadingListContext.Provider>
