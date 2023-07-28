@@ -7,7 +7,8 @@ export const ReadingList = () => {
 
   return (
     <aside className='hidden bg-gray-800 rounded mx-auto w-2/5 lg:block p-6 border-2 border-white min-h-screen'>
-        <h4 className="text-4xl text-center mb-5">Reading list</h4>
+        <h3 className="text-4xl text-center ">Reading list</h3>
+        <h4 className="text-center mb-5"><strong>{readingList.length} books</strong></h4>
         <ul className="flex gap-5 justify-center flex-wrap">
           {
             readingList.map( book => (

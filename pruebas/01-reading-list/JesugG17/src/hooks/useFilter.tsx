@@ -1,15 +1,18 @@
-import { useContext } from "react"
+import { useContext, useRef } from "react"
 import { library as initialLibrary } from '../mock/books.json';
 import { FilterContext } from "../context/FilterContext"
 import { removeAccents } from "../utils/removeAccents";
 
 export const useFilter = () => {
    
+    const libraryRef = useRef(initialLibrary);
     const {filter, setFilter} = useContext(FilterContext);
 
     const filterBooks = () => {
 
-        const filteredLibrary = initialLibrary.filter(item => (
+        const library = libraryRef.current;
+
+        const filteredLibrary = library.filter(item => (
             
             item.book.pages >= filter.minPages &&
             (
@@ -17,9 +20,8 @@ export const useFilter = () => {
                 removeAccents(item.book.genre) == filter.genre
             )
 
-        ))
+        ));
        
-            
         return filteredLibrary;
     }
 
@@ -28,7 +30,8 @@ export const useFilter = () => {
 
     return {
         library,
-        setFilter
+        setFilter,
+        totalItems: libraryRef.current.length
     }
 
 }

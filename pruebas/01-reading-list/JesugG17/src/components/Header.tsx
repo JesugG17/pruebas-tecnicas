@@ -5,10 +5,10 @@ import { ReadingListIcon } from "./Icons"
 
 export const Header = () => {
 
-  const { library } = useFilter();
+  const { totalItems } = useFilter();
   const { readingList } = useReadingList();
 
-  const booksLeft = library.length - readingList.length;
+  const booksLeft = totalItems - readingList.length;
 
   return (
     <header className="relative">
