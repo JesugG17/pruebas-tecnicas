@@ -1,10 +1,17 @@
-import { FC, PropsWithChildren, useState } from "react"
+import { FC, PropsWithChildren, useEffect, useState } from "react"
 import { ReadingListContext } from "./ReadingListContext"
-import { Book } from "../types/libary.interface";
+import { Book } from '../types/libary.interface';
 
 export const ReadingListProvider: FC<Props> = ({ children }) => {
 
-  const [readingList, setReadingList] = useState<Book[]>([]);
+  const [readingList, setReadingList] = useState<Book[]>(() => {
+    const storage = localStorage.getItem('list') || '[]';
+    return JSON.parse(storage);
+  });
+
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(readingList));
+  }, [readingList]);
 
   const addBookToReadingList = (book: Book) => {
     setReadingList([book, ...readingList]);
@@ -16,11 +23,17 @@ export const ReadingListProvider: FC<Props> = ({ children }) => {
     setReadingList(newReadingList);
   }
 
+  const searchBookOnReadingList = (ISBN: string) => {
+    const isBookOnList = readingList.some(book => book.ISBN === ISBN);
+    return isBookOnList;   
+  }
+
   return (
     <ReadingListContext.Provider value={{
       readingList,
       addBookToReadingList,
-      removeBookToReadingList
+      removeBookToReadingList,
+      searchBookOnReadingList
     }}>
         { children }
     </ReadingListContext.Provider>

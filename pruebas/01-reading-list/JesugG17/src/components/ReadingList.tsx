@@ -6,18 +6,18 @@ export const ReadingList = () => {
 
 
   return (
-    <aside className='hidden rounded mx-auto w-1/4 lg:block p-6 border-2 border-white min-h-screen'>
+    <aside className='hidden bg-gray-800 rounded mx-auto w-2/5 lg:block p-6 border-2 border-white min-h-screen'>
         <h4 className="text-4xl text-center mb-5">Reading list</h4>
-        <ul className="flex flex-col gap-2 items-center">
+        <ul className="flex gap-5 justify-center flex-wrap">
           {
             readingList.map( book => (
               <li
-                className="cursor-pointer flex justify-center"
+                className="w-2/5 cursor-pointer flex justify-center"
                 onClick={() => removeBookToReadingList(book.ISBN)}
                 key={book.ISBN}
               >
                 <img
-                  className="hover:brightness-110 w-3/4"
+                  className="hover:brightness-110"
                   src={book.cover} 
                   alt="" 
                 />
